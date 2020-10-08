@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block contect %}
+{% if perms.college.delete_student  %}
+<div class="pt-5">
+    <div class="container p-5">
+    
+    
+    <form method="post" class="form-group fa-border">  
+    {% csrf_token %} 
+    <p>Are you sure you want to delete "{{ object }}"?</p> 
+    <input type="submit" class="btn btn-danger" value="Confirm"> 
+    <a name="" id="" class="btn btn-primary" href="/" role="button">Back</a>
+</form> 
+{% else %}
+<a name="" id="" class="btn btn-primary" href="/" role="button">Back</a>
+{%endif %}
+</div></div>
+{%endblock %}

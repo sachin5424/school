@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block contect %}
+<body style="background-color: blueviolet; color: white;">
+
+
+<div class="p-5">
+<div class="p-5">
+
+
+<h2>Sign up</h2>
+<form method="POSt">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="username" required>
+    <input type="email" name="email" placeholder="email" required>
+    <input type="text" name="password1" placeholder="password" required>
+    <input type="text" name="password2" placeholder="conf_password" required>
+      <select id="org" name="org_list" onChange="redirectUrl()" required>
+    <option  value="" selected="selected" >---SELECT---</option>
+    {% for org in group %}
+     <option value="{{org.id}}">{{org.name|capfirst}}</option>
+    {% endfor %}
+  </select>
+    <input type="submit" value="signup">
+</form>
+{%endblock %}

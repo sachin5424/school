@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block contect %}
+<body style="background-color: blueviolet;">
+
+
+    {% if messages %}
+    <div class="col-lg-3 color03">
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+      <div class="p-5 " >
+        
+          <div class="container bg-danger ">
+            <div class="row">
+              <div class="col-10">
+                <h1 class="text-center p-3 font-weight-bold" style="color: white;">Student List</h1>
+              </div>
+              <div class="col-2">
+                <a name="" id="" class="btn btn-primary mt-4" href="/accounts/logout" role="button">Logout</a>
+                <!-- <a name="" id="" class="btn btn-primary mt-4" href="/accounts/password_change" role="button">password_change</a> -->
+                
+              </div>
+            </div>
+              
+            
+            
+          </div>
+          <div class="container" style="background-color: aliceblue;">
+              <table class="table">
+                  <thead>
+                
+                      <div class="text-center">
+
+                        {% if perms.student.add_student_list  %}
+                        
+                           <small>Teacher</small>
+                        <a href="{% url 'student:student_list_create' %}">
+                            <h3>Create list</h3>
+                        </a> 
+                        {% else %}
+                        <small>Student</small>
+
+                        {% endif%} 
+                      </div>
+                    <h4 class="mr-1 text-center p-3">{{request.user.username}}
+                        {% if perms.student.add_student_list  %}
+                     
+                        
+                        {% else %}
+                        <i class="fa fa-child" aria-hidden="true"></i>
+                        {% endif %}    
+                    </h4>
+                  
+
+                      </div>
+                      <tr>
+                          <th>Roll no</th>
+                          <th>name</th>
+                          <th>class</th>
+                          <th>markes</th> 
+                          {% if perms.student.change_student  %}
+
+                          <th>edit</th>
+                          {% endif %}
+                          {% if perms.student.delete_student  %}
+                   
+                         
+                          <th>Delete</th>
+                          {% endif %}
+                        
+                      </tr>
+                  </thead>
+                  <tbody style="background-color: aliceblue;">
+                    {% for object in object_list %}
+                      <tr>
+                       
+                          <td scope="row">{{object.roll_no}}</td>
+                          <td>{{object.user}}</td>
+                          <td>{{object.student_class}}th</td>
+                          <td>{{object.markes}}</td>
+                         
+                          {% if perms.student.change_student %}
+                          <th><a href="{% url 'student:update_view' object.id %}">Edit</a></th>
+
+                          {% endif %}
+
+
+                          {% if perms.student.delete_student  %}
+                   
+                          <th><a href="{% url 'student:delete_view' object.id %}">delete</a></th>
+                          {% endif%}
+                        
+                      </tr>
+                      {% endfor%}
+                  
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      </body>
+{% endblock%}
